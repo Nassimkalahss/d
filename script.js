@@ -1,38 +1,26 @@
-document.addEventListener("DOMContentLoaded", () => {
+// Welkomstbericht bij klikken op 'Word lid'
+document.addEventListener("DOMContentLoaded", function () {
   const ctaBtn = document.querySelector(".cta");
-  const darkBtn = document.getElementById("toggle-dark");
 
   if (ctaBtn) {
-    ctaBtn.addEventListener("click", (e) => {
-      e.preventDefault();
+    ctaBtn.addEventListener("click", function (e) {
+      e.preventDefault(); // voorkom dat hij naar een lege link springt
       alert("Welkom bij de community! Binnenkort kun je je hier aanmelden.");
     });
   }
 
-  // Donkere modus toggle
-  if (darkBtn) {
-    darkBtn.addEventListener("click", () => {
-      document.body.classList.toggle("dark");
-      darkBtn.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+  // Hover effect voor categoriekaarten (extra visueel accent)
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach((card) => {
+    card.addEventListener("mouseenter", () => {
+      card.style.transform = "scale(1.05)";
+      card.style.boxShadow = "0 4px 12px rgba(0,0,0,0.2)";
     });
-  }
 
-  // Scroll-in animaties (extra)
-  const fadeElements = document.querySelectorAll(".fade-in");
-  const observer = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.animationPlayState = "running";
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
-
-  fadeElements.forEach(el => {
-    el.style.animationPlayState = "paused";
-    observer.observe(el);
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "scale(1)";
+      card.style.boxShadow = "0 2px 8px rgba(0,0,0,0.1)";
+    });
   });
 });
